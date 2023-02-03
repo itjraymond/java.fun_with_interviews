@@ -37,7 +37,7 @@ public class ArrayToList {
                 new Muffin("brand", 5),
                 new Muffin("blueberry", 8),
                 new Muffin("rasberry", 3),
-                new Muffin("straberry", 2),
+                new Muffin("strawberry", 2),
         };
 
         List<Muffin> ms = al.mapTArrayToList(muffins);
@@ -46,13 +46,28 @@ public class ArrayToList {
 
         ms.stream().forEach(System.out::println);
 
+        // check this out
+        int i[] = {0}; // works
+        int y[] = {0,2,4};
+        // istead of long way...
+        int z[] = new int[]{0,2,4};
+        for (int k=0; k<y.length; k++) {
+            System.out.println("y[" + k + "] = " + y[k]);
+        }
+
     }
 
     /**
      * int[] -> List<Integer>
      */
+    //     public List<Integer> mapIntArrayToList(int[] xs) {
+    //        return Arrays.stream(xs).mapToObj(Integer::valueOf).toList();
+    //    } // SAME AS BELOW (for primitive)
     public List<Integer> mapIntArrayToList(int[] xs) {
-        return Arrays.stream(xs).mapToObj(Integer::valueOf).toList();
+        return Arrays.stream(xs).boxed().toList();
+    }
+    public List<Double> mapDoublePrimitiveArrayToListOfDouble(double[] xs) {
+        return Arrays.stream(xs).boxed().toList();
     }
 
     /**

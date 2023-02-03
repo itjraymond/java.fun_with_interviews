@@ -71,3 +71,5 @@ public class WordReversal {
     }
 
 }
+
+// static class Bo {} Compile error cannot be static

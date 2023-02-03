@@ -21,7 +21,7 @@ public class ArrayInitialization {
         };
 
         // Here is a cool way to create a String[]
-        String[] cool = "One,two,three,four,five,six".split(",");
+        String[] cool = "One,two,three,four,five,six".split(","); // ["One","two","three","four","five","six"]
     }
 
     @Data

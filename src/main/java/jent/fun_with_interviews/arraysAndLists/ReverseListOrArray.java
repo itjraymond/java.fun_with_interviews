@@ -18,6 +18,15 @@ public class ReverseListOrArray {
         String[] l3 = "Walking,Running,Eating".split(",");
         Stream<String> l4 = Stream.of("Walking", "Running", "Eating");
 
+        new LinkedList<>(l1).addFirst("Waiting"); // see because addFirst(...) is void, not very useful in some scenarios
+
+        String[] a1 = new String[]{"1","2","3","4","5"};
+        String[] a2 = reverse(a1);
+
+        for (int i=0; i<a1.length;i++) {
+            System.out.println(a1[i] + " -> " + a2[i]);
+        }
+
         // Runtime exception "l1" is immutable
         // Collections.reverse(l1);
         // l1.stream().forEach(System.out::println);

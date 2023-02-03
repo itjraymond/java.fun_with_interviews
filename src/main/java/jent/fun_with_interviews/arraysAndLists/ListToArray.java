@@ -48,7 +48,7 @@ public class ListToArray {
      * List<String> -> String[]
      */
     public String[] mapListOfStringToArray(List<String> ss) {
-        IntFunction<String[]> generator = i -> new String[i]; // IntFunction is a function that takes an integer a returns the generic type.  The int is used as a "size" for generating the array in this case
+        IntFunction<String[]> generator = i -> new String[i]; // IntFunction is a function that takes an integer a returns the type of our choice.  The int is used as a "size" for generating the array in this case
         IntFunction<String[]> gen = String[]::new;            // Hence this also works
         return ss.stream().toArray(generator);
         // return ss.stream().toArray(String[]::new); // This is also a good alternative as it is direct

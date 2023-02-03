@@ -16,12 +16,21 @@ public class ComparisonApp {
         List<Ball> balls = Arrays.asList(new Ball(5,"red"), null, new Ball(3,"blue"), new Ball(8,"black"), null, new Ball(1, "green"));
         List<Ball> bs = new ArrayList<Ball>(balls.stream().filter(b -> b != null).toList());
 
+        // Collections.sort(bs) cannot have the List<Ball> (i.e. bs) to contains null; otherwise throw exception
+        // Also, bs "has to" be mutable
         Collections.sort(bs);
 
         bs.stream().forEach(b -> System.out.println(b.getSize()));
 
         var ballons = Arrays.asList(new Ballon(5, "red"), null, new Ballon(3, "blue"), new Ballon(8, "black"), null, new Ballon(1, "green"));
-        // var ballonsss = new ArrayList<Ballon>(new Ballon(5, "red"), null, new Ballon(3, "blue"), new Ballon(8, "black"), null, new Ballon(1, "green")); // CANNOT CREATE new ArrayList(with items here)
+        var ballonsss = new ArrayList<Ballon>(){{
+            add(new Ballon(5, "red"));
+            add(null);
+            add(new Ballon(3, "blue"));
+            add(new Ballon(8, "black"));
+            add(null);
+            add(new Ballon(1, "green"));
+        }};
 
         List<Ballon> ballonss = new ArrayList<Ballon>(ballons.stream().filter(b -> b != null).toList());
 
@@ -64,10 +73,12 @@ public class ComparisonApp {
                 colorComparator
         );
 
+        // Collections.sort mutate the original "list"
+        // Let see a different sort which does not mutate the original but return a new sorted list
         Arrays.asList(5,8,4,7,1,9,3,2,6).stream().sorted().forEach(System.out::println); // sort natural order 1,2,3,...
 
         // we could also use immutable list, lets add reverse order
-        List.of(5,8,4,7,1,9,3,2,6).stream().sorted(Collections.reverseOrder()).forEach(System.out::println);
+        List.of(5,8,4,7,1,9,3,2,6).stream().sorted(Collections.reverseOrder()).forEach(System.out::println); // sort natural reverse order
 
         // Using a stream of Ballon with comparable and sort by size
         List.of(
@@ -89,7 +100,7 @@ public class ComparisonApp {
 
     /**
      * Some observation:  Because the comparison involve "this" pointer, having an ArrayList<Ball> cannot contains null entries.
-     * See above filtering the null out.
+     * See above filtering the null out. i.e. b1 and b2 cannot be null otherwise bx.getColor() will result in NPE.
      */
     @Data
     @AllArgsConstructor

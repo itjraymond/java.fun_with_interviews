@@ -27,7 +27,7 @@ public class Pangrams {
         System.out.println("'" + s + "' is a perfect pangram? " + isPerfectPangrams(s));
         s = "aBcDeFGhijKlMnoPqrstuvwxyz";
         System.out.println("is the sentence '" + s + "' an Pangrams: " + isPangrams(s));
-        System.out.println("'" + s + "' is a perfect pangram? " + isPerfectPangrams(s));
+        System.out.println("'" + s + "' is a perfect pangram? " + isPerfectPangrams2(s));
     }
 
     public static boolean isPangrams(String s) {
@@ -39,11 +39,24 @@ public class Pangrams {
                 .stream().count() == 26L;
     }
 
+
     public static boolean isPerfectPangrams(String s) {
         Map<Character, Long> alphas = s.toUpperCase()
                 .chars()
                 .filter(character -> character >= 'A' && character <= 'Z')
                 .mapToObj(c -> (char) c)
+                .collect(groupingBy(Function.identity(), counting()));
+
+        boolean all26Alphas = alphas.size() == 26;
+        boolean allOccursOnce = alphas.values().stream().allMatch(c -> c == 1);
+        return all26Alphas && allOccursOnce;
+    }
+
+    public static boolean isPerfectPangrams2(String s) {
+        Map<Integer, Long> alphas = s.toUpperCase()
+                .chars()
+                .filter(character -> character >= 'A' && character <= 'Z')
+                .boxed()
                 .collect(groupingBy(Function.identity(), counting()));
 
         boolean all26Alphas = alphas.size() == 26;
