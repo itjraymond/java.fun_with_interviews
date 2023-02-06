@@ -15,6 +15,7 @@ public class FPDecoratorPattern {
     static DoubleUnaryOperator deductGeneralTax = amt -> amt - amt * 0.1; // 10%
     static DoubleUnaryOperator deductRegionalTax = amt -> amt - amt * 0.04; // 4%
     static DoubleUnaryOperator deductHealthInsurance = amt -> amt - amt * 0.07; // 7%
+    // similar to saying: amt - (amt*0.1) - ((amt - (amt*0.1)))*0.04) - ((((amt - (amt*0.1)))*0.04)))*0.07)
 
     static DoubleUnaryOperator deductRrspContribution = amt -> amt - 100.0;
 
@@ -23,6 +24,9 @@ public class FPDecoratorPattern {
     static DoubleUnaryOperator taxCalculator(DoubleUnaryOperator... fs) {
         return Stream.of(fs).reduce(DoubleUnaryOperator.identity(), DoubleUnaryOperator::andThen);
     };
+
+    // It is the same as (in a way)
+    static DoubleUnaryOperator finalFn = montlySalary.andThen(deductGeneralTax).andThen(deductRegionalTax).andThen(deductHealthInsurance);
 
     public static void main(String[] args) {
         double montlySalaryAfterDeductions = taxCalculator(
@@ -33,5 +37,7 @@ public class FPDecoratorPattern {
                 deductRrspContribution
         ).applyAsDouble(30000.0);
         System.out.println("Monthly salary after all deductions: " + montlySalaryAfterDeductions);
+
+        finalFn.applyAsDouble(30000.0);
     }
 }
