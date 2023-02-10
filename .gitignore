@@ -23,6 +23,5 @@
 hs_err_pid*
 
 .idea/
-build/
 .gradle/
-.gradle/7.6/
+build/
